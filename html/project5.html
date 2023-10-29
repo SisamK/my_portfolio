@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/project5.css">
+    <title>Rock Paper Scissors</title>
+</head>
+<header>
+    <div class="button1-container">
+        <a href="/index.html" class="button1">MainPage</a>
+        <a href="/contact.html" class="button1">Contact Me</a>
+    </div> 
+       
+</header>
+<body>
+    <div class="header">
+        <img src="/img/logo.png" alt="Rock Paper Scissors Logo" class="logo">
+    <h1>Rock, Paper, Scissors</h1></div>
+    <div>
+        <section>
+    <p>Select either rock, paper, or scissors and see if you can beat the computer!</p>
+    <p><strong>Remember:</strong> "Rock breaks scissors, scissors cuts paper, paper covers rock."</p></section>
+</div>
+    <div class="score">
+    </div>
+    <div class="message">
+    </div>
+    <div>
+        <div class="button-container">
+            <img src="/img/rock.png" alt="Rock">
+            <button type="button" id="text">ROCK
+            </button>
+        </div>
+        <div class="button-container">
+            <img src="/img/paper.png" alt="Paper">
+            <button type="button" id="text">PAPER
+            </button>
+        </div>
+        <div class="button-container">
+            <img src="/img/scissor.png" alt="Scissors">
+            <button type="button" id="scissors">SCISSORS
+            </button>
+            <script src="/js/script.js"></script>
+        </div>
+    </div>
+    <script>
+        const message = document.querySelector('.message');
+const score = document.querySelector('.score');
+const buttons = document.querySelectorAll('button');
+const winnerScores = [0, 0];
+
+// Add event listeners to buttons
+for (let i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener('click', playGame);
+}
+
+function playGame(e) {
+  
+    let playerSelection = e.target.innerText;
+    let computerSelection = Math.random();
+
+
+    if (computerSelection < 0.34) {
+        computerSelection = 'ROCK';
+    } else if (computerSelection <= 0.67) {
+        computerSelection = 'PAPER';
+    } else {
+        computerSelection = 'SCISSORS';
+    }
+
+    
+    let result = checkWinner(playerSelection, computerSelection);
+
+  
+    if (result === 'Player') {
+        result += ' wins!';
+    
+        winnerScores[0]++;
+    }
+
+    if (result === 'Computer') {
+        result += ' wins!';
+        winnerScores[1]++;
+    }
+
+    if (result === 'Draw') {
+        result += ". It's a tie!";
+    }
+
+    score.innerHTML = 'Player: [ ' + winnerScores[0] + ' ] Computer: [ ' + winnerScores[1] + ' ]';
+
+    messenger('Player: <strong>' + playerSelection + '</strong> Computer: <strong>' + computerSelection + '</strong><br>' + result);
+}
+
+function messenger(selectionMessage) {
+    message.innerHTML = selectionMessage;
+}
+
+function checkWinner(player, computer) {
+    player = player.toUpperCase();
+    computer = computer.toUpperCase();
+
+    if (player === computer) {
+        return 'Draw';
+    }
+
+    if (player === 'ROCK') {
+        if (computer === 'PAPER') {
+            return 'Computer';
+        } else {
+            return 'Player';
+        }
+    }
+
+    if (player === 'PAPER') {
+        if (computer === 'SCISSORS') {
+            return 'Computer';
+        } else {
+            return 'Player';
+        }
+    }
+
+    if (player === 'SCISSORS') {
+        if (computer === 'ROCK') {
+            return 'Computer';
+        } else {
+            return 'Player';
+        }
+    }
+}
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/project1.css">
+</head>
+<body>
+    <div class="button-container">
+        <a href="/html/portfolio.html" class="button">Portfolio</a>
+        <a href="/contact.html" class="button">Contact Me</a>
+    </div>
+    <div id="app">
+        <div class="calculator">
+            <div class="formulaScreen"></div>
+            <div id="display" class="outputScreen">0</div>
+            <div>
+                <button class="jumbo" id="clear" value="AC">AC</button>
+                <button id="backspace" value="backspace">⌫</button>
+                <button id="percentage" value="%">%</button>
+                <button id="divide" value="/">/</button>
+                <button id="seven" value="7">7</button>
+                <button id="eight" value="8">8</button>
+                <button id="nine" value="9">9</button>
+                <button id="multiply" value="x">x</button>
+                <button id="four" value="4">4</button>
+                <button id="five" value="5">5</button>
+                <button id="six" value="6">6</button>
+                <button id="subtract" value="‑">‑</button>
+                <button id="one" value="1">1</button>
+                <button id="two" value="2">2</button>
+                <button id="three" value="3">3</button>
+                <button class="jumbo" id="zero" value="0">0</button>
+                <button id="decimal" value=".">.</button>
+                <button id="equals" value="=">=</button>
+                <button id="square-root" value="sqrt">√</button>
+                <button id="addition" value="+">+</button>
+            </div>
+        </div>
+        <div class="author">Code By<br><a href="https://codepen.io/SisamK" target="_blank">SisamK</a></div>
+    </div>
+    <script>
+        const display = document.getElementById("display");
+const buttons = document.querySelectorAll("button");
+
+let currentValue = "";
+let formula = "";
+let isResultDisplayed = false;
+
+buttons.forEach((button) => {
+    button.addEventListener("click", handleButtonClick);
+});
+
+document.addEventListener("keydown", handleKeyboardInput);
+
+function handleKeyboardInput(event) {
+    const key = event.key;
+    const allowedKeys = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "+", "-", "*", "/", "=", "Enter"];
+
+    if (allowedKeys.includes(key)) {
+        event.preventDefault();
+        const button = document.querySelector(`button[value="${key}"]`);
+        if (button) {
+            button.click();
+        }
+    }
+
+    if (key === "Backspace") {
+        backspace();
+    }
+
+    if (key === "Escape") {
+        clearDisplay();
+    }
+}
+
+function handleButtonClick(event) {
+    if (isResultDisplayed) {
+        clearDisplay();
+        isResultDisplayed = false;
+    }
+
+    const buttonValue = event.target.value;
+
+    if (buttonValue === "AC") {
+        clearDisplay();
+    } else if (buttonValue === "=") {
+        calculateResult();
+    } else if (buttonValue === "backspace") {
+        backspace();
+    } else if (buttonValue === "sqrt") {
+        calculateSquareRoot();
+    } else {
+        updateDisplay(buttonValue);
+    }
+}
+
+function clearDisplay() {
+    currentValue = "";
+    formula = "";
+    display.textContent = "0";
+}
+
+function updateDisplay(value) {
+    if (value === "." && currentValue.includes(".")) {
+        return;
+    }
+
+    if (value === "0" && currentValue === "0") {
+        return;
+    }
+
+    if (value === "0" && currentValue === "") {
+        return;
+    }
+
+    currentValue += value;
+    display.textContent = currentValue;
+}
+
+function backspace() {
+    if (currentValue.length > 0) {
+        currentValue = currentValue.slice(0, -1);
+        display.textContent = currentValue;
+    }
+}
+
+function calculateResult() {
+    try {
+        formula = currentValue.replace(/x/g, "*").replace(/‑/g, "-").replace(/÷/g, "/");
+        currentValue = eval(formula).toString();
+        display.textContent = currentValue;
+        isResultDisplayed = true;
+    } catch (error) {
+        display.textContent = "Error";
+    }
+}
+
+function calculateSquareRoot() {
+    currentValue = Math.sqrt(parseFloat(currentValue)).toString();
+    display.textContent = currentValue;
+    isResultDisplayed = true;
+}
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sustainable Travel Planner</title>
+    <link rel="stylesheet" href="/css/project2.css">
+</head>
+<body>
+    <div class="button-container">
+        <a href="/html/portfolio.html" class="button">Portfolio</a>
+        <a href="/contact.html" class="button">Contact Me</a>
+    </div>
+    <header>
+		<div class="header">
+				<ul class="menu-list">
+					<li class="menu-item menu-selected"><a href="#" class="menu-link">Home</a></li>
+					<li class="menu-item"><a href="#" class="menu-link">Tour</a></li>
+					<li class="menu-item"><a href="#" class="menu-link">Plan</a></li>
+					<li class="menu-item"><a href="#" class="menu-link">Blog</a></li>
+					<li class="menu-item"><a href="#" class="menu-link">Sign Up</a></li>
+
+				</ul>
+			</div>
+		</div>
+		<div class="container">
+        <h1>Sustainable Travel Planner</h1>
+        <p>Your guide to eco-friendly adventures</p>
+		</div>
+    </header>
+    <main>
+        <section id="destination-form">
+            <h2>Plan Your Sustainable Trip</h2>
+            <form>
+                <label for="destination">Destination:</label>
+                <input type="text" id="destination" name="destination" required>
+                <button id="plan-button">Plan Trip</button>
+            </form>
+        </section>
+        <section id="trip-results">
+            <!-- Results will be displayed here using JavaScript -->
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Sustainable Travel Planner</p>
+    </footer>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector("#destination-form");
+        const results = document.querySelector("#trip-results");
+    
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const destination = document.querySelector("#destination").value;
+            // You can use this destination value to fetch and display travel information.
+            // For simplicity, I'll just display it as an alert.
+            alert(`Planning a trip to ${destination}...`);
+            results.style.display = "block";
+            results.innerHTML = `<p>Your trip to ${destination} is planned!</p>`;
+        });
+    });
+    </script>
+</body>
+</html>
+<body>
+
+	
